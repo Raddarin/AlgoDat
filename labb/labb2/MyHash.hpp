@@ -14,18 +14,13 @@ public:
 
   V get(K key_in) {
     int index = keyhash(key_in) % size;
-    if (bucket_list[index].size() == 1) {
-      return bucket_list[index][0].val;
-    } else {
-      for (KeyValPair &node : bucket_list[index]) {
-        if (node.key == key_in) {
-          return node.val;
-        }
+    for (KeyValPair &node : bucket_list[index]) {
+      if (node.key == key_in) {
+        return node.val;
       }
     }
     return V();
   }
-
   void put(K new_key, V new_val) {
     int index = keyhash(new_key) % size;
     for (KeyValPair &node : bucket_list[index]) {
