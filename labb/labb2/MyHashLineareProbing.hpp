@@ -40,7 +40,7 @@ public:
     bucket_list[index].val = new_val;
     bucket_list[index].is_occupied = true;
     elements++;
-    if ((float)(elements) / size > 0.5) {
+    if ((float)(elements) / size > 0.4) {
       size = 2 * size;
       reyhash();
     }

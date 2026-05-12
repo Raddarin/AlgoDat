@@ -32,7 +32,7 @@ public:
   }
   void put(K new_key, V new_val) {
     size_t start_index = keyhash(new_key) % size;
-    if ((float)(elements + 1) / size > 0.4) {
+    if ((float)(elements + 1) / size > 0.3) {
       size *= 2;
       reyhash();
     }
@@ -76,7 +76,7 @@ public:
         bucket_list[index].status = DELETED;
         elements--;
 
-        if (size < 0.125) {
+        if (size < 0.25) {
           size = size / 2;
           reyhash();
         }

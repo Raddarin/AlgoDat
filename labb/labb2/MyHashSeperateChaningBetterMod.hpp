@@ -13,7 +13,7 @@ public:
   MyHash() : size(1), elements(0) { bucket_list.resize(size); }
 
   V get(K key_in) {
-    int index = keyhash(key_in) % size;
+    int index = keyhash(key_in) & (size - 1);
     for (KeyValPair &node : bucket_list[index]) {
       if (node.key == key_in) {
         return node.val;
@@ -22,7 +22,7 @@ public:
     return V();
   }
   void put(K new_key, V new_val) {
-    int index = keyhash(new_key) % size;
+    int index = keyhash(new_key) & (size - 1);
     for (KeyValPair &node : bucket_list[index]) {
       if (node.key == new_key) {
         node.val = new_val;
@@ -32,13 +32,13 @@ public:
     bucket_list[index].push_back({new_key, new_val});
     elements++;
     if ((float)elements / size > 0.5) {
-      size = 2 * size;
+      size = size << 1;
       reyhash();
     }
   }
 
   bool remove(K key_in) {
-    int index = keyhash(key_in) % size;
+    int index = keyhash(key_in) & (size - 1);
     std::vector<KeyValPair> &chain = bucket_list[index];
 
     for (auto node = chain.begin(); node != chain.end(); ++node) {
@@ -46,7 +46,7 @@ public:
         chain.erase(node);
         elements--;
         if ((float)elements / size < 0.25) {
-          size = size / 2;
+          size = size >> 1;
           reyhash();
         }
         return true;
