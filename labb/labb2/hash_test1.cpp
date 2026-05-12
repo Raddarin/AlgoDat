@@ -1,4 +1,4 @@
-#include "MyHash.hpp"
+#include "MyHashQuadraticProbing.hpp"
 #include <iostream>
 #include <string>
 
@@ -30,14 +30,14 @@ int main() {
   std::string best_word = "";
   int max_count = -1;
 
-  for (auto const &[word, count] : d.getAll()) {
+  for (auto const &[word, count, _] : d.getAll()) {
     if (count > max_count) {
       max_count = count;
       best_word = word;
     }
   }
 
-  for (auto const &[this_word, this_count] : d.getAll()) {
+  for (auto const &[this_word, this_count, _] : d.getAll()) {
     if (this_count == max_count && this_word < best_word) {
       best_word = this_word;
     }

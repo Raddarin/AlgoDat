@@ -8,6 +8,7 @@ public:
   struct KeyValPair {
     K key;
     V val;
+    bool is_occupied;
   };
 
   MyHash() : size(1), elements(0) { bucket_list.resize(size); }
